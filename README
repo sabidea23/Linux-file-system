@@ -1,0 +1,85 @@
+TEMA 1 IOCLA
+
+Nume:Dinu Andreea Sabina
+Grupa: 322 CB
+
+->In functia main, am alocat directorul parinte home, am citit de la stdin
+intr-un buffer numele comenzii dorite, apoi in functie de aceasta, am
+citit si restul datelor si am apelat functiile pentru directoare si 
+fisiere, pornind de la directorul radacina(home), pana cand am citit
+comanda "stop", care elibereaza memoria alocata pentru intrega structura
+de date si opreste programul.
+
+->Am implementat 2 functii pentru alocarea unei celule de lista de tip
+director, respectiv pentru o structura de tip fisier. Am alocat campul 
+name cu lungimea corespunzatoare si am initializat restul campurilor
+cu NULL.
+
+->Pentru functia touch, am verificat daca fisierul nu se afla deja in lista de
+fisiere a directorului curent. Daca nu se afla, am creat o structura de 
+tip fisier, am parcurs lista pana la final folosind 2 pointeri, cand se ajunge 
+la finalul listei, pointerul ant va retine ultimul element de care 
+vom lega noua celula de lista. Daca acesta este NULL, inseamna ca se 
+insereaza primul element in lista.
+
+->In implementarea functiei mkdir, am verificat daca directorul nu se afla deja in 
+lista de directoare ale directorului curent. Daca directorul se afla deja in lista, se 
+afiseaza un mesaj corespunzator. Lista este parcursa pana la final folosind 2 
+pointeri, cand se ajunge la finalul listei, pointerul ant va retine ultimul 
+element de care vom lega noua celula de lista. Daca acesta este NULL, inseamna ca se 
+insereaza primul element in lista.
+
+->Pentru functia ls, am implementat 2 functii auxiliare, pe care le-am apelat
+pe rand, mai intai se afiseaza lista de directoare ale directorului curent,
+apoi cea de fisiere.
+
+->Functia rm verifica daca numele fisierul primit ca parametru se afla in lista 
+de fisiere, pentru a-l elimina. Daca acesta este primul element al listei, 
+se schimba inceputul listei si se elibereaza memoria alocata pentru fisierul
+respectiv. Altfel, se parcurge lista de fisiere folosind si un pointer care 
+retine celula precedenta, pana se gaseste fisierul dorit. Cand s-a gasit, 
+se refac legaturile listei si se elibereaza memoria alocata.
+
+->Functia rmdir verifica daca numele directorului primit ca parametru se afla in lista 
+de directoare, pentru a-l elimina. Daca acesta este primul element al listei, 
+se schimba inceputul listei si se elibereaza memoria alocata pentru directorul
+respectiv. Altfel, se parcurge lista de directoare folosind si un pointer care 
+retine celula precedenta, pana se gaseste directorul dorit. Cand s-a gasit, 
+se refac legaturile listei si se elibereaza memoria alocata.
+
+->In implementarea functiei cd, am cautat daca exista directorul cu numele 
+primit ca parametru. Daca se gaseste, schimba directorul curent in directorul
+cu acel nume. Altfel, se afiseaza un mesaj corespunzator.
+La intalnirea caracterului special "..", se va schimba calea cu directorul parinte 
+al directorului curent, prin parcurgerea in sus a ierarhiei de fisiere.
+
+->Functia pwd intoarce un sir de caractere ce reprezinta calea catre directorul
+curent. Am folosit o functie auxiliara cara parcurge recursiv ierarhia de fisiere
+si primeste ca parametru sirul de caractere, care va reprezenta calea. Pornind de la 
+cel mai de sus director din ierarhie, se concateneaza la inceputul 
+numelui acestuia caracterul "/", prin inversarea de 2 ori a caracterelor sale, apoi 
+se concateneaza la sirul final.
+
+->Functia tree parcurge recursiv lista de directoare si fisiere din directorul 
+curent si le afiseaza intr-o structura arborescenta. Indentarea se face prin
+cresterea unui contor la fiecare nivel al recursivitatii. Dupa ce se afiseaza structura 
+de directoare a directorului, se afiseaza lista de fisiere si se trece 
+la urmatorul director din lista.
+
+->Functia  mv verifica daca daca numele oldname exista deja, iar apoi daca numele 
+newname nu este folosit deja, in caz contrar va afisa mesaje de eroare.
+Daca se doreste redenumirea unui fisier, mai intai se schimba numele acestuia,
+apoi se extrage celula corespunzatoare lui din lista de fisiere si
+se insereaza la sfarsitul acesteia. La fel am procedat si pentru un director, 
+l-am redenumit, l-am extras din lista de directoare, am refacut legaturile si apoi
+l-am inserat la finalul listei.
+Pentru a identifica daca numele este al unui director sau fisier, am folosit 
+functia checkMvName, care cauta numele in lista de directoare si fisiere, iar in functie
+de locul in care il gaseste, returneaza niste constante definite ca macro-uri.
+
+-> Functia stop opreste aplicatia si elibereaza memoria alocata. Se urca in ierarhia 
+de directoare pana se ajunge la directorul /home, care are campul parinte NULL,
+apoi se elibereaza recursiv memoria alocata pentru directoare si fisiere, folosind
+functia auxiliara freeDir, Aceasta elibereaza memoria alocata pentru o lista de
+directoare, iar pentru fiecare director in parte, elibereaza lista de fisiere 
+si numele acestuia. 
